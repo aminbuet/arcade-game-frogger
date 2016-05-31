@@ -1,7 +1,15 @@
+// Generates a random integet between a and b, inclusive
+var getRandomInteger = function(a,b){
+    return a + Math.floor((b-a)*Math.random());
+}
+
 // Enemies our player must avoid
-var Enemy = function() {
+var Enemy = function(row,  minStartX, maxStartX, minSpeed, maxSpeed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
+    this.x = getRandomInteger(minStartX || -300, maxStartX || -100);
+    this.y = (row-1)*83 + 140;
+    this.speed =  getRandomInteger(minSpeed || 100, maxSpeed || 300);
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
