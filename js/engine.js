@@ -47,6 +47,7 @@ var Engine = (function(global) {
          */
         update(dt);
         render();
+        drawScore(player.score);
 
         /* Set our lastTime variable which is used to determine the time delta
          * for the next time this function is called.
@@ -58,6 +59,13 @@ var Engine = (function(global) {
          */
         win.requestAnimationFrame(main);
     }
+
+    function drawScore(score) {
+        ctx.clearRect(0, 0, 200, 50)
+        ctx.font = "30px Arial";
+        ctx.fillStyle = "#0095DD";
+        ctx.fillText("Score: "+ score, 10, 40);
+}
 
     /* This function does some initial setup that should only occur once,
      * particularly setting the lastTime variable that is required for the
