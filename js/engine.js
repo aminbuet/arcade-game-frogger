@@ -47,6 +47,8 @@ var Engine = (function(global) {
          */
         update(dt);
         render();
+
+        // Diplay the current score of the palyer
         drawScore(player.score);
 
         /* Set our lastTime variable which is used to determine the time delta
@@ -60,11 +62,12 @@ var Engine = (function(global) {
         win.requestAnimationFrame(main);
     }
 
+    // This function display the score
     function drawScore(score) {
-        ctx.clearRect(0, 0, 200, 50)
+        ctx.clearRect(150, 0, 200, 50)
         ctx.font = "30px Arial";
         ctx.fillStyle = "#0095DD";
-        ctx.fillText("Score: "+ score, 10, 40);
+        ctx.fillText("Score: "+ score, 200, 40);
 }
 
     /* This function does some initial setup that should only occur once,

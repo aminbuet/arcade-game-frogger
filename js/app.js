@@ -30,7 +30,7 @@ var Enemy = function(row,  minStartX, maxStartX, minSpeed, maxSpeed) {
     this.minSpeed = minSpeed || 100;
     this.maxSpeed = maxSpeed || 300;
 
-    this.y = (row-1)*83 + 140;
+    this.y = (row-1)*83 + 145;
     this.x = getRandomInteger(this.minStartX || -300, maxStartX || -100);
     this.speed =  getRandomInteger(minSpeed || 100, maxSpeed || 300);
 
@@ -86,7 +86,7 @@ Player.prototype.update = function(){
     }
     else if (this.y<0){
         this.score += 10;
-        this.state = 500;
+        this.state = 100;
     }
 };
 
