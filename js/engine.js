@@ -23,7 +23,9 @@ var Engine = (function(global) {
         win = global.window,
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
-        lastTime;
+        lastTime,
+        startTime,
+        totalTime;
 
     canvas.width = 505;
     canvas.height = 606;
@@ -40,34 +42,53 @@ var Engine = (function(global) {
          * computer is) - hurray time!
          */
         var now = Date.now(),
-            dt = (now - lastTime) / 1000.0;
-
-        /* Call our update/render functions, pass along the time delta to
-         * our update function since it may be used for smooth animation.
-         */
-        update(dt);
-        render();
+            dt = (now - lastTime) / 1000.0,
+            elapsedTime = (now - startTime) / 1000.0;
 
         // Diplay the current score of the palyer
-        drawScore(player.score);
+        if (elapsedTime < totalTime){
+            /* Call our update/render functions, pass along the time delta to
+             * our update function since it may be used for smooth animation.
+             */
+            update(dt);
+            render();
 
-        /* Set our lastTime variable which is used to determine the time delta
-         * for the next time this function is called.
-         */
-        lastTime = now;
+            drawScoreTime(player.getScore(), (totalTime - elapsedTime).toFixed(1));
 
-        /* Use the browser's requestAnimationFrame function to call this
-         * function again as soon as the browser is able to draw another frame.
-         */
-        win.requestAnimationFrame(main);
+            /* Set our lastTime variable which is used to determine the time delta
+             * for the next time this function is called.
+             */
+            lastTime = now;
+
+            /* Use the browser's requestAnimationFrame function to call this
+             * function again as soon as the browser is able to draw another frame.
+             */
+            win.requestAnimationFrame(main);
+        }
+        else {
+            var decision = confirm("Play Again");
+            if (decision){
+                initEnemy(5);
+                player.reset();
+                init();
+            }
+            else {
+                return;
+            }
+        }
     }
 
-    // This function display the score
-    function drawScore(score) {
-        ctx.clearRect(150, 0, 200, 50)
-        ctx.font = "30px Arial";
+    // Display the score
+    function drawScoreTime(score, time) {
+        ctx.clearRect(0, 0, 239, 50)
+        ctx.font = "25px Arial";
         ctx.fillStyle = "#0095DD";
-        ctx.fillText("Score: "+ score, 200, 40);
+        ctx.fillText("Score: "+ score, 5, 40);
+
+        ctx.clearRect(240, 0, 265, 50)
+        ctx.font = "25px Arial";
+        ctx.fillStyle = "#0095DD";
+        ctx.fillText("Time remaining: "+ ("    " + time).slice(-4) + " s", 245, 40);
 }
 
     /* This function does some initial setup that should only occur once,
@@ -77,6 +98,8 @@ var Engine = (function(global) {
     function init() {
         reset();
         lastTime = Date.now();
+        startTime = lastTime;
+        totalTime = 30; // the total time given to a player
         main();
     }
 
