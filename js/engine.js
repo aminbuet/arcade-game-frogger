@@ -45,7 +45,7 @@ var Engine = (function(global) {
             dt = (now - lastTime) / 1000.0,
             elapsedTime = (now - startTime) / 1000.0;
 
-        // Diplay the current score of the palyer
+        // If the player has more time to play
         if (elapsedTime < totalTime){
             /* Call our update/render functions, pass along the time delta to
              * our update function since it may be used for smooth animation.
@@ -65,8 +65,8 @@ var Engine = (function(global) {
              */
             win.requestAnimationFrame(main);
         }
-        else {
-            var decision = confirm("Play Again");
+        else { // Time over
+            var decision = confirm("Play Again?");
             if (decision){
                 initEnemy(5);
                 player.reset();
@@ -78,7 +78,7 @@ var Engine = (function(global) {
         }
     }
 
-    // Display the score
+    // Display the score and the time remaining
     function drawScoreTime(score, time) {
         ctx.clearRect(0, 0, 239, 50)
         ctx.font = "25px Arial";
@@ -89,7 +89,7 @@ var Engine = (function(global) {
         ctx.font = "25px Arial";
         ctx.fillStyle = "#0095DD";
         ctx.fillText("Time remaining: "+ ("    " + time).slice(-4) + " s", 245, 40);
-}
+    }
 
     /* This function does some initial setup that should only occur once,
      * particularly setting the lastTime variable that is required for the
