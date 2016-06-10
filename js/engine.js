@@ -1,3 +1,5 @@
+'use strict';
+
 /* Engine.js
  * This file provides the game loop functionality (update entities and render),
  * draws the initial game board on the screen, and then calls the update and
@@ -46,7 +48,7 @@ var Engine = (function(global) {
             elapsedTime = (now - startTime) / 1000.0;
 
         // If the player has more time to play
-        if (elapsedTime < totalTime){
+        if (elapsedTime < totalTime) {
             /* Call our update/render functions, pass along the time delta to
              * our update function since it may be used for smooth animation.
              */
@@ -64,15 +66,13 @@ var Engine = (function(global) {
              * function again as soon as the browser is able to draw another frame.
              */
             win.requestAnimationFrame(main);
-        }
-        else { // Time over
+        } else { // Time over
             var decision = confirm("Play Again?");
-            if (decision){
+            if (decision) {
                 initEnemy(5);
                 player.reset();
                 init();
-            }
-            else {
+            } else {
                 return;
             }
         }
@@ -83,12 +83,12 @@ var Engine = (function(global) {
         ctx.clearRect(0, 0, 239, 50)
         ctx.font = "25px Arial";
         ctx.fillStyle = "#0095DD";
-        ctx.fillText("Score: "+ score, 5, 40);
+        ctx.fillText("Score: " + score, 5, 40);
 
         ctx.clearRect(240, 0, 265, 50)
         ctx.font = "25px Arial";
         ctx.fillStyle = "#0095DD";
-        ctx.fillText("Time remaining: "+ ("    " + time).slice(-4) + " s", 245, 40);
+        ctx.fillText("Time remaining: " + ("    " + time).slice(-4) + " s", 245, 40);
     }
 
     /* This function does some initial setup that should only occur once,
@@ -142,12 +142,12 @@ var Engine = (function(global) {
          * for that particular row of the game level.
          */
         var rowImages = [
-                'images/water-block.png',   // Top row is water
-                'images/stone-block.png',   // Row 1 of 3 of stone
-                'images/stone-block.png',   // Row 2 of 3 of stone
-                'images/stone-block.png',   // Row 3 of 3 of stone
-                'images/grass-block.png',   // Row 1 of 2 of grass
-                'images/grass-block.png'    // Row 2 of 2 of grass
+                'images/water-block.png', // Top row is water
+                'images/stone-block.png', // Row 1 of 3 of stone
+                'images/stone-block.png', // Row 2 of 3 of stone
+                'images/stone-block.png', // Row 3 of 3 of stone
+                'images/grass-block.png', // Row 1 of 2 of grass
+                'images/grass-block.png' // Row 2 of 2 of grass
             ],
             numRows = 6,
             numCols = 5,
